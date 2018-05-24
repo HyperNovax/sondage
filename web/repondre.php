@@ -27,23 +27,33 @@
                 $query = $bdd->prepare($sql);
                 $query->execute(array(':idQuestion' => $question['id']));
                 $result = $query->fetchAll();
+
+                $ordre = 1;
             ?>
             <div class="col-md-12 sort">
                 <?php foreach ($result as $reponse) { ?>
 
-                    <div class="reponse">
-                        <div class="col-md-12">
+                    <div class="reponse" rel="<?php echo $reponse['id'] ?>">
+                        <div class="col-md-4 ordre"><?php echo $ordre ?></div>
+                        <div class="col-md-8">
                             <?php echo $reponse['libelle'] ?>
                         </div>
                     </div>
 
-                <?php } ?>
+                <?php
+                    $ordre++;
+                }
+                ?>
             </div>
 
         </div>
     <?php } ?>
 
-    <button>Enregistrer</button>
+    <button id="submit">Enregistrer</button>
+
+<div class="response">
+
+</div>
 
 <script src="/js/sortReponse.js"></script>
 
