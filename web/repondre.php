@@ -1,61 +1,103 @@
 <?php
 
     extract($_GET);
+    session_start();
 
-    if (empty($_GET['id'])) {
+    if (!isset($_GET['id'])) {
         header('location: messondages.php');
     }
 
+    require ("../lib/ManagerReponse.php");
     include '../header.html';
 
-    include("../lib/accesBDD.php");
-
     $idSondage = $_GET['id'];
+    $idUtilisateur = $_SESSION['idUser'];
 
     $sql = "SELECT * FROM question as q WHERE q.idSondage = :idSondage ORDER BY q.ordre";
+    $bdd = PdoDatabase::getInstance()->getDbh();
     $query = $bdd->prepare($sql);
     $query->execute(array(':idSondage' => $idSondage));
     $result = $query->fetchAll();
 
+    $haveReponse = ManagerReponse::userHaveReponse($idUtilisateur, $idSondage);
+?>
+    <input type="hidden" id="idSondage" value="<?php echo $idSondage ?>">
+<?php
     foreach ($result as $question) {?>
-        <div class="row">
+        <div class="row question">
             <div class="col-md-12">
                 <?php echo $question['titre'] ?>
             </div>
-            <?php
-                $sql = "SELECT * FROM reponse as r WHERE r.idQuestion = :idQuestion";
-                $query = $bdd->prepare($sql);
-                $query->execute(array(':idQuestion' => $question['id']));
-                $result = $query->fetchAll();
 
-                $ordre = 1;
-            ?>
-            <div class="col-md-12 sort">
-                <?php foreach ($result as $reponse) { ?>
-
-                    <div class="reponse" rel="<?php echo $reponse['id'] ?>">
-                        <div class="col-md-4 ordre"><?php echo $ordre ?></div>
-                        <div class="col-md-8">
-                            <?php echo $reponse['libelle'] ?>
-                        </div>
-                    </div>
-
-                <?php
-                    $ordre++;
-                }
-                ?>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">Préférence</div>
+                    <div class="col-md-8">Réponse</div>
+                </div>
             </div>
+
+            <?php
+                if ($haveReponse) {
+                    $sql = "SELECT * FROM utilisateur_reponse as ur INNER JOIN reponse as r ON r.id = ur.idReponse INNER JOIN question as q ON q.id = r.idQuestion WHERE q.id = :idQuestion AND ur.idUtilisateur = :idUtilisateur ORDER BY preference";
+                    $query = $bdd->prepare($sql);
+                    $query->bindParam(":idQuestion", $question['id']);
+                    $query->bindParam(':idUtilisateur', $idUtilisateur);
+                    $query->execute();
+                    $result = $query->fetchAll();
+
+                    ?>
+                        <div class="col-md-12 sort">
+                            <?php foreach ($result as $reponse) { ?>
+
+                                <div class="row reponse" rel="<?php echo $reponse['idReponse'] ?>">
+                                    <div class="col-md-4 ordre"><?php echo $reponse['preference'] ?></div>
+                                    <div class="col-md-8">
+                                        <?php echo $reponse['libelle'] ?>
+                                    </div>
+                                </div>
+
+                                <?php
+
+                            }
+                            ?>
+                        </div>
+                    <?php
+                } else {
+                    $sql = "SELECT * FROM reponse as r WHERE r.idQuestion = :idQuestion";
+                    $query = $bdd->prepare($sql);
+                    $query->execute(array(':idQuestion' => $question['id']));
+                    $result = $query->fetchAll();
+
+                    $ordre = 1;
+
+                    ?>
+                <div class="col-md-12 sort">
+                    <?php foreach ($result as $reponse) { ?>
+
+                        <div class="reponse" rel="<?php echo $reponse['id'] ?>">
+                            <div class="col-md-4 ordre"><?php echo $ordre ?></div>
+                            <div class="col-md-8">
+                                <?php echo $reponse['libelle'] ?>
+                            </div>
+                        </div>
+
+                        <?php
+                        $ordre++;
+                    }
+                    ?>
+                </div>
+            <?php
+                }
+            ?>
+
 
         </div>
     <?php } ?>
 
     <button id="submit">Enregistrer</button>
+    <a href="messondages.php">Retour</a>
 
-<div class="response">
-
-</div>
-
-<script src="/js/sortReponse.js"></script>
+    <div id="response" class="hidden"></div>
 
 </body>
 

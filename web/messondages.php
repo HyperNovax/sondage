@@ -4,6 +4,7 @@
 
     include("../lib/accesBDD.php");
 
+
     /**
      * On récupère tout les sondages.
      */

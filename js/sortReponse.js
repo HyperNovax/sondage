@@ -2,8 +2,6 @@ $(function () {
 
     let listSort = document.getElementsByClassName("sort");
 
-    console.log(listSort);
-
     [].forEach.call(listSort, function (list) {
         Sortable.create(list, {
             animation: 150,
@@ -36,17 +34,27 @@ $(function () {
 
         console.log(arrayReponse);
 
+        /**
+         * On récupère l'id du sondage.
+         * @type {*|jQuery}
+         */
+        let idSondage = $('#idSondage').val();
+
+
         $.ajax({
             url: "/web/enregistrerreponse/",
-            data: {array_Reponse:arrayReponse},
+            data: {array_Reponse:arrayReponse, idSondage:idSondage},
             method: "POST",
+            dataType: "json"
         }).done(function (res) {
-            $('.response').append(res);
-            console.log("done");
-            //$('#response').removeClass("hidden");
-            //$('#response').append("<div class='alert alert-success alert-dismissable'><a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>"+res+"</div>");
+            $('#response').removeClass("hidden");
+            $('#response').children().remove();
+            $('#response').append("<div class='alert alert-success alert-dismissable'><a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>"+res.status+"</div>");
         }).fail(function (res) {
-            $('.response').appendChild(res);
+            console.log('fail');
+            console.log(res);
+            $('.response').append(res);
+            $('.response').append(res.responseText);
         });
     });
 
