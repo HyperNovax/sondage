@@ -19,7 +19,7 @@
                         <?php echo $sondage['titre'] ?>
                     </div>
                     <div>
-                        <button>Répondre</button>
+                        <button class="btn btn-primary">Répondre</button>
                     </div>
                 </form>
             </div>

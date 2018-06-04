@@ -94,8 +94,8 @@
         </div>
     <?php } ?>
 
-    <button id="submit">Enregistrer</button>
-    <a href="messondages.php">Retour</a>
+    <button id="submit" class="btn btn-primary">Enregistrer</button>
+    <a href="messondages.php" class="btn btn-primary">Retour</a>
 
     <div id="response" class="hidden"></div>
 
