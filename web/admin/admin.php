@@ -8,7 +8,7 @@
 
 
     include 'headerAdmin.html';
-    include("lib/accesBDD.php");
+    include("../../lib/accesBDD.php");
 ?>
 <h1>Les sondages</h1>
 <br>

@@ -9,7 +9,7 @@
 
 
     include 'headerAdmin.html';
-    include("lib/accesBDD.php");
+    include("../../lib/accesBDD.php");
 ?>
 <h1>Statistiques sur le sondage</h1>
 <br>
@@ -23,11 +23,11 @@
      */
 
     $idQuestion = 0;
-    $query = $bdd ->query("SELECT q.titre, q.preference, R.`id`,R.`libelle`, R.idQuestion, count(UR.idReponse) as nb FROM `reponse` R INNER JOIN question Q on R.idQuestion = Q.id 
+    $query = $bdd ->query("SELECT Q.titre, Q.ordre, R.`id`,R.`libelle`, R.idQuestion, count(UR.idReponse) as nb FROM `reponse` R INNER JOIN question Q on R.idQuestion = Q.id 
             INNER JOIN utilisateur_reponse UR on UR.idReponse = R.id 
-            WHERE q.idSondage = ".$_GET["sondage"]."
-            GROUP BY q.titre, q.preference,R.id,R.Libelle, R.idQuestion 
-            order by Q.preference");
+            WHERE Q.idSondage = ".$_GET["sondage"]."
+            GROUP BY Q.titre, Q .ordre,R.id,R.Libelle, R.idQuestion 
+            order by Q.ordre");
     while($sondage = $query->fetch(PDO::FETCH_OBJ)) {
         if($idQuestion != $sondage->idQuestion) {
             $idQuestion = $sondage->idQuestion;
