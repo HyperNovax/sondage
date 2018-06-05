@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 23 mai 2018 à 21:50
+-- Généré le :  mar. 05 juin 2018 à 07:53
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -93,8 +93,8 @@ CREATE TABLE IF NOT EXISTS `sondage` (
 --
 
 INSERT INTO `sondage` (`id`, `titre`, `description`, `dateDebut`, `dateFin`, `token_url`) VALUES
-(1, 'Sondage 1', '', '2018-05-22', '2018-05-29', ''),
-(2, 'Sondage 2', '', '2018-05-15', '2018-05-30', '');
+(1, 'Sondage 1', '', '2018-05-22', '2018-06-20', ''),
+(2, 'Sondage 2', '', '2018-05-15', '2018-06-28', '');
 
 -- --------------------------------------------------------
 
@@ -105,20 +105,21 @@ INSERT INTO `sondage` (`id`, `titre`, `description`, `dateDebut`, `dateFin`, `to
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(250) NOT NULL,
-  `prenom` varchar(250) NOT NULL,
+  `nom` varchar(250) DEFAULT NULL,
+  `prenom` varchar(250) DEFAULT NULL,
   `email` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
   `type` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `email`, `password`, `type`) VALUES
-(1, 'test', 'test', 'florian.lephore@outlook.com', 'test', 'USER');
+(1, 'test', 'test', 'florian.lephore@outlook.com', 'test', 'USER'),
+(2, NULL, NULL, 'dsds', 'aaa', 'USER');
 
 -- --------------------------------------------------------
 
@@ -130,10 +131,24 @@ DROP TABLE IF EXISTS `utilisateur_reponse`;
 CREATE TABLE IF NOT EXISTS `utilisateur_reponse` (
   `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
   `idReponse` int(11) NOT NULL,
-  `ordre` int(11) NOT NULL,
+  `preference` int(11) NOT NULL,
   KEY `FK_utilisateur` (`idUtilisateur`),
   KEY `FK_utilisateur_reponse` (`idReponse`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `utilisateur_reponse`
+--
+
+INSERT INTO `utilisateur_reponse` (`idUtilisateur`, `idReponse`, `preference`) VALUES
+(1, 1, 1),
+(1, 2, 2),
+(1, 3, 2),
+(1, 4, 1),
+(2, 2, 1),
+(2, 1, 2),
+(2, 4, 2),
+(2, 3, 1);
 
 --
 -- Contraintes pour les tables déchargées
