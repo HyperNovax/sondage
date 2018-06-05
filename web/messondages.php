@@ -15,11 +15,13 @@
             <div class="col-md-12">
                 <form action="/web/repondre.php" method="get">
                     <input type="hidden" name="id" value="<?php echo $sondage['id'] ?>">
-                    <div>
-                        <?php echo $sondage['titre'] ?>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary">Répondre</button>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <?php echo $sondage['titre'] ?>
+                        </div>
+                        <div class="col-md-5">
+                            <button class="btn btn-primary">Répondre</button>
+                        </div>
                     </div>
                 </form>
             </div>
