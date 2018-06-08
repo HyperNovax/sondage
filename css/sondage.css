@@ -1,4 +1,25 @@
 
+.container-sondage {
+    padding: 15px;
+}
+
+.sondage {
+    display: flex;
+    align-items: center;
+    background-color: #60a3bc;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.sondage > .title {
+    color: white;
+}
+
+.sondage > .repondre {
+    display: flex;
+    justify-content: center;
+}
+
 .question {
     margin-bottom: 15px;
 }
