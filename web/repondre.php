@@ -25,13 +25,11 @@
 <?php
     foreach ($result as $question) {?>
         <div class="row question">
-            <div class="col-md-12">
-                <?php echo $question['titre'] ?>
-            </div>
+            <div class="col-md-12"><div class="title"><?php echo $question['titre'] ?></div></div>
 
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-4">Préférence</div>
+                    <div class="col-md-4 preference-title">Préférence</div>
                     <div class="col-md-8">Réponse</div>
                 </div>
             </div>
@@ -46,21 +44,20 @@
                     $result = $query->fetchAll();
 
                     ?>
+
                         <div class="col-md-12 sort">
                             <?php foreach ($result as $reponse) { ?>
-
-                                <div class="row reponse" rel="<?php echo $reponse['idReponse'] ?>">
+                            <div class="reponse">
+                                <div class="row" rel="<?php echo $reponse['idReponse'] ?>">
                                     <div class="col-md-4 ordre"><?php echo $reponse['preference'] ?></div>
                                     <div class="col-md-8">
                                         <?php echo $reponse['libelle'] ?>
                                     </div>
                                 </div>
-
-                                <?php
-
-                            }
-                            ?>
+                            </div>
+                            <?php } ?>
                         </div>
+
                     <?php
                 } else {
                     $sql = "SELECT * FROM reponse as r WHERE r.idQuestion = :idQuestion";
@@ -94,8 +91,14 @@
         </div>
     <?php } ?>
 
-    <button id="submit" class="btn btn-primary">Enregistrer</button>
-    <a href="messondages.php" class="btn btn-primary">Retour</a>
+    <div class="row button">
+        <div class="col-xs-6">
+            <button id="submit" class="btn btn-lg btn-repondre">Enregistrer</button>
+        </div>
+        <div class="col-xs-6">
+            <a href="messondages.php" class="btn btn-lg btn-repondre">Retour</a>
+        </div>
+    </div>
 
     <div id="response" class="hidden"></div>
 

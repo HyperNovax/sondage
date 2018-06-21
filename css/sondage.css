@@ -1,25 +1,70 @@
 
-.container-sondage {
-    padding: 15px;
-}
-
 .sondage {
-    display: flex;
-    align-items: center;
-    background-color: #60a3bc;
-    padding: 5px;
-    margin-bottom: 15px;
+    background-color: #22a6b3;
+    padding-top: 5px;
 }
 
 .sondage > .title {
     color: white;
+    font-size: 1.4em;
+    border-left: 4px solid #c23616;
+    padding-left: 10px;
+    margin-bottom: 10px;
 }
 
-.sondage > .repondre {
-    display: flex;
-    justify-content: center;
+.sondage .container-sondage {
+    padding: 5px;
 }
+
+.sondage  .container-sondage .date {
+    margin-bottom: 10px;
+}
+
+.sondage .container-sondage .date .label {
+    font-size: 1.0em;
+}
+
+.btn-repondre {
+    background-color: #2e86de;
+    color: white;
+    border-radius: 0;
+}
+
+.btn-repondre:hover {
+    background-color: #0097e6;
+    color: white;
+}
+
+/* Répondre au sondage */
 
 .question {
-    margin-bottom: 15px;
+    padding: 10px;
 }
+
+.question .title {
+    background-color: #22a6b3;
+    color: white;
+    font-size: 1.1em;
+    padding: 3px 3px 3px 10px;
+    border-left: 3px solid #c23616;
+}
+
+.preference-title {
+    text-align: center;
+}
+
+.question .reponse {
+    background-color: #576574;
+    color: white;
+    padding: 3px;
+    margin-bottom: 10px;
+}
+
+.question .reponse .ordre {
+    text-align: center;
+}
+
+.button {
+    text-align: center;
+}
+

@@ -5,16 +5,20 @@
         <title>Sondage</title>
 
         <link rel="stylesheet" href="/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/css/global.css" />
+        <link rel="stylesheet" href="/css/header.css" />
         <link rel="stylesheet" href="/css/sondage.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <script src="/js/sortable/Sortable.js"></script>
+
         <script src="/js/jquery/jquery-3.3.1.min.js"></script>
+
+        <script src="/js/sortable/Sortable.js"></script>
         <script src="/js/sortReponse.js"></script>
     </head>
 
     <body>
         <div class="container">
-            <div class="navbar navbar-inverse">
+            <div class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
@@ -28,9 +32,10 @@
 
                     <div class="collapse navbar-collapse" id="menu">
                         <ul class="nav navbar-nav">
-                            <li class=""><a href="/web/messondages.php">Mes sondages</a></li>
+                            <li class="active"><a href="/web/messondages.php">Sondages en cours</a></li>
+                            <li class=""><a href="">Sondages terminés</a></li>
                             <li class=""><a href="">Mon compte</a></li>
-                            <li><a class="" href="/web/admin/admin.php" target="_blank">Administration</a></li>
+                            <li class=""><a href="/web/admin/admin.php" target="_blank">Administration</a></li>
                         </ul>
                         <div class="nav navbar-form navbar-right">
                             <a href="/deconnexion.php" class="btn btn-block btn-blue">Déconnexion <i class="glyphicon glyphicon-log-out logout-icon"></i></a>
@@ -38,3 +43,5 @@
                     </div>
                 </div>
             </div>
+
+            <script src="/js/bootstrap/bootstrap.min.js"></script>

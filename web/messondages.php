@@ -2,38 +2,47 @@
 
     include '../header.html';
 
-    include("../lib/accesBDD.php");
-
+    include("../lib/PdoDatabase.php");
 
     /**
      * On récupère tout les sondages.
      */
-    $query = $bdd->query("SELECT * FROM sondage as s WHERE s.dateFin > NOW() and s.dateDebut < NOW() ORDER BY dateFin DESC");
+    $bdd = PdoDatabase::getInstance()->getDbh();
+    $query = $bdd->query("SELECT * FROM sondage as s WHERE s.dateFin > NOW() and s.dateDebut < NOW() ORDER BY dateFin ASC");
+
+    $index = 0;
     ?>
 
-    <div class="container-sondage">
-    <?php while($sondage = $query->fetch(PDO::FETCH_ASSOC)) { ?>
-        <?php
-            $dateDebut  = new DateTime($sondage['dateDebut']);
-            $dateFin = new DateTime($sondage["dateFin"]);
-        ?>
-        <div class="row">
-            <div class="col-md-offset-2 col-md-7">
-                <form action="/web/repondre.php" method="get">
-                    <input type="hidden" name="id" value="<?php echo $sondage['id'] ?>">
-                    <div class="row sondage">
+    <?php
+        while($sondage = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                        <div class="col-xs-4 title"><h4><?php echo $sondage['titre'] ?></h4></div>
-                        <div class="col-xs-2"><span class="label label-default"><?php echo $dateDebut->format("d/m/Y") ?></span></div>
-                        <div class="col-xs-2"><span class="label label-default"><?php echo $dateFin->format("d/m/Y") ?></span></div>
-                        <div class="col-xs-4 repondre">
-                            <button class="btn btn-primary">Répondre</button>
-                        </div>
+        $dateDebut = new DateTime($sondage['dateDebut']);
+        $dateFin = new DateTime($sondage["dateFin"]);
 
+        if ($index % 3 == 0) {
+            echo '<div class="row">';
+        }
+    ?>
+        <div class="col-md-4">
+            <form action="/web/repondre.php" method="get">
+                <input type="hidden" name="id" value="<?php echo $sondage['id'] ?>">
+                <div class="sondage">
+
+                    <div class="title"><?php echo $sondage['titre'] ?></div>
+                    <div class="container-sondage">
+                        <div class="date"><span class="label label-default">Date d'ouverture : <?php echo $dateDebut->format("d/m/Y") ?></span></div>
+                        <div class="date"><span class="label label-default">Date de cloture : <?php echo $dateFin->format("d/m/Y") ?></span></div>
                     </div>
-                </form>
-            </div>
-        </div>
-    <?php } ?>
-    </div>
 
+                    <button class="btn btn-large btn-repondre">Répondre</button>
+
+                </div>
+            </form>
+        </div>
+    <?php
+        if ($index != 0 && $index % 3 == 0) {
+            echo "</div>";
+        }
+        $index++;
+    }
+    ?>
