@@ -11,9 +11,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
         <script src="/js/jquery/jquery-3.3.1.min.js"></script>
-
+        <script src="/js/bootstrap/bootstrap.min.js"></script>
         <script src="/js/sortable/Sortable.js"></script>
         <script src="/js/sortReponse.js"></script>
+        <script src="/js/global.js"></script>
     </head>
 
     <body>
@@ -32,16 +33,15 @@
 
                     <div class="collapse navbar-collapse" id="menu">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="/web/messondages.php">Sondages en cours</a></li>
-                            <li class=""><a href="">Sondages terminés</a></li>
+                            <li class=""><a href="/web/messondages.php">Sondages en cours</a></li>
+                            <li class=""><a href="/web/sondage_colture.php">Sondages cloturés</a></li>
                             <li class=""><a href="">Mon compte</a></li>
                             <li class=""><a href="/web/admin/admin.php" target="_blank">Administration</a></li>
                         </ul>
                         <div class="nav navbar-form navbar-right">
-                            <a href="/deconnexion.php" class="btn btn-block btn-blue">Déconnexion <i class="glyphicon glyphicon-log-out logout-icon"></i></a>
+                            <a href="/deconnexion.php" class="btn btn-info btn-sondage">Déconnexion</i></a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <script src="/js/bootstrap/bootstrap.min.js"></script>
