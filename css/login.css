@@ -1,0 +1,36 @@
+
+html, body {
+    background-color: #dcdde1;
+}
+
+.container-form {
+    margin-top: 80px;
+    background-color: white;
+    border: 3px solid #22a6b3;
+}
+
+.form-login {
+    padding: 10px;
+}
+
+.title-login {
+    text-align: center;
+    background-color: #22a6b3;
+    color: white;
+    padding: 5px 0;
+    font-size: 1.7em;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.input-group:last-child {
+    margin-bottom: 0;
+}
+
+.btn-connexion, .btn-inscription {
+    background-color: #0abde3;
+    border-radius: 0;
+}

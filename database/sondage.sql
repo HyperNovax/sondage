@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 05 juin 2018 à 07:53
+-- Généré le :  sam. 23 juin 2018 à 00:50
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `question` (
 --
 
 INSERT INTO `question` (`id`, `titre`, `ordre`, `idSondage`) VALUES
-(1, 'Question 1', 1, 1),
+(1, 'Quel est votre série préférée ?', 1, 1),
 (2, 'Question 2', 2, 1);
 
 -- --------------------------------------------------------
@@ -66,8 +66,8 @@ CREATE TABLE IF NOT EXISTS `reponse` (
 --
 
 INSERT INTO `reponse` (`id`, `libelle`, `idQuestion`) VALUES
-(1, 'Réponse 1 - Question 1', 1),
-(2, 'Réponse 2 - Question 1', 1),
+(1, 'Kaamelott', 1),
+(2, 'Dr House', 1),
 (3, 'Réponse 1 - Question 2', 2),
 (4, 'Réponse 2 - Question 2', 2);
 
@@ -86,15 +86,16 @@ CREATE TABLE IF NOT EXISTS `sondage` (
   `dateFin` date NOT NULL,
   `token_url` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `sondage`
 --
 
 INSERT INTO `sondage` (`id`, `titre`, `description`, `dateDebut`, `dateFin`, `token_url`) VALUES
-(1, 'Sondage 1', '', '2018-05-22', '2018-06-20', ''),
-(2, 'Sondage 2', '', '2018-05-15', '2018-06-28', '');
+(1, 'Sondage 1', '', '2018-05-22', '2018-06-30', ''),
+(2, 'Sondage 2', '', '2018-05-15', '2018-06-27', ''),
+(3, 'Sondage 3', 'Cloturé', '2018-06-13', '2018-06-22', '');
 
 -- --------------------------------------------------------
 
@@ -111,15 +112,14 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `password` varchar(250) NOT NULL,
   `type` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `email`, `password`, `type`) VALUES
-(1, 'test', 'test', 'florian.lephore@outlook.com', 'test', 'USER'),
-(2, NULL, NULL, 'dsds', 'aaa', 'USER');
+(1, 'test', 'test', 'florian.lephore@outlook.com', 'test', 'USER');
 
 -- --------------------------------------------------------
 
@@ -134,21 +134,17 @@ CREATE TABLE IF NOT EXISTS `utilisateur_reponse` (
   `preference` int(11) NOT NULL,
   KEY `FK_utilisateur` (`idUtilisateur`),
   KEY `FK_utilisateur_reponse` (`idReponse`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `utilisateur_reponse`
 --
 
 INSERT INTO `utilisateur_reponse` (`idUtilisateur`, `idReponse`, `preference`) VALUES
-(1, 1, 1),
 (1, 2, 2),
+(1, 1, 1),
 (1, 3, 2),
-(1, 4, 1),
-(2, 2, 1),
-(2, 1, 2),
-(2, 4, 2),
-(2, 3, 1);
+(1, 4, 1);
 
 --
 -- Contraintes pour les tables déchargées

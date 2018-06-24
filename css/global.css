@@ -1,0 +1,24 @@
+
+html, body {
+    background-color: #f7f7ff;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.btn-large {
+    width: 100%;
+}
+
+.btn-sondage {
+    background-color: #0abde3;
+    color: white;
+    border: 0;
+    border-radius: 0;
+}
+
+.btn-sondage:hover {
+    border: 0;
+    box-shadow: none;
+}
