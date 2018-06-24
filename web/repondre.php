@@ -21,95 +21,92 @@
 
     $haveReponse = ManagerReponse::userHaveReponse($idUtilisateur, $idSondage);
 ?>
-    <input type="hidden" id="idSondage" value="<?php echo $idSondage ?>">
+        <input type="hidden" id="idSondage" value="<?php echo $idSondage ?>">
 
-    <div class="row">
-        <div class="col-md-offset-2 col-md-8">
-            <div class="alert alert-info">
-                <strong>Veuillez ordonner vos différents choix en fonction de vos préférences !</strong>
-            </div>
-            <div class="questionnaire">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <div class="alert alert-info">
+                    <strong>Veuillez ordonner vos différents choix en fonction de vos préférences !</strong>
+                </div>
+                <div class="questionnaire">
 
-                <?php foreach ($result as $question) {?>
-                    <div class="row question">
-                        <div class="col-md-12"><div class="title"><?php echo $question['titre'] ?></div></div>
+                    <?php foreach ($result as $question) {?>
+                        <div class="row question">
+                            <div class="col-md-12"><div class="title"><?php echo $question['titre'] ?></div></div>
 
-                        <?php if ($haveReponse) {
-                            $sql = "SELECT * FROM utilisateur_reponse as ur INNER JOIN reponse as r ON r.id = ur.idReponse INNER JOIN question as q ON q.id = r.idQuestion WHERE q.id = :idQuestion AND ur.idUtilisateur = :idUtilisateur ORDER BY preference";
-                            $query = $bdd->prepare($sql);
-                            $query->bindParam(":idQuestion", $question['id']);
-                            $query->bindParam(':idUtilisateur', $idUtilisateur);
-                            $query->execute();
-                            $result = $query->fetchAll();
-                        ?>
-
-                        <div class="col-md-12 sort">
-                            <?php foreach ($result as $reponse) { ?>
-                                <div class="reponse">
-                                    <div class="row" rel="<?php echo $reponse['idReponse'] ?>">
-                                        <div class="col-xs-2 ordre"><?php echo $reponse['preference'] ?></div>
-                                        <div class="col-xs-10"><?php echo $reponse['libelle'] ?></div>
-                                    </div>
-                                </div>
-                            <?php } ?>
-                        </div>
-
-                        <?php
-                        } else {
-                            $sql = "SELECT * FROM reponse as r WHERE r.idQuestion = :idQuestion";
-                            $query = $bdd->prepare($sql);
-                            $query->execute(array(':idQuestion' => $question['id']));
-                            $result = $query->fetchAll();
-
-                            $ordre = 1;
-
+                            <?php if ($haveReponse) {
+                                $sql = "SELECT * FROM utilisateur_reponse as ur INNER JOIN reponse as r ON r.id = ur.idReponse INNER JOIN question as q ON q.id = r.idQuestion WHERE q.id = :idQuestion AND ur.idUtilisateur = :idUtilisateur ORDER BY preference";
+                                $query = $bdd->prepare($sql);
+                                $query->bindParam(":idQuestion", $question['id']);
+                                $query->bindParam(':idUtilisateur', $idUtilisateur);
+                                $query->execute();
+                                $result = $query->fetchAll();
                             ?>
+
                             <div class="col-md-12 sort">
                                 <?php foreach ($result as $reponse) { ?>
-
-                                    <div class="reponse" rel="<?php echo $reponse['id'] ?>">
-                                        <div class="col-xs-2 ordre"><?php echo $ordre ?></div>
-                                        <div class="col-xs-10">
-                                            <?php echo $reponse['libelle'] ?>
+                                    <div class="reponse">
+                                        <div class="row" rel="<?php echo $reponse['idReponse'] ?>">
+                                            <div class="col-xs-1 move-icon"><span class="glyphicon glyphicon-move"></span></div>
+                                            <div class="col-xs-1 ordre"><?php echo $reponse['preference'] ?></div>
+                                            <div class="col-xs-10 choix"><?php echo $reponse['libelle'] ?></div>
                                         </div>
                                     </div>
-
-                                    <?php
-                                    $ordre++;
-                                }
-                                ?>
+                                <?php } ?>
                             </div>
-                            <?php
-                        }
-                        ?>
 
+                            <?php } else {
+                                $sql = "SELECT * FROM reponse as r WHERE r.idQuestion = :idQuestion";
+                                $query = $bdd->prepare($sql);
+                                $query->execute(array(':idQuestion' => $question['id']));
+                                $result = $query->fetchAll();
 
-                    </div>
-                <?php } ?>
+                                $ordre = 1;
+                            ?>
+                                <div class="col-md-12 sort">
+                                    <?php foreach ($result as $reponse) { ?>
+                                        <div class="reponse">
+                                            <div class="row" rel="<?php echo $reponse['id'] ?>">
+                                                <div class="col-xs-1 move-icon"><span class="glyphicon glyphicon-move"></span></div>
+                                                <div class="col-xs-1 ordre"><?php echo $ordre ?></div>
+                                                <div class="col-xs-10 choix"><?php echo $reponse['libelle'] ?></div>
+                                            </div>
+                                        </div>
+                                    <?php $ordre++; } ?>
+                                </div>
 
-                <div class="row button">
-                    <div class="col-xs-6">
-                        <button id="submit" class="btn btn-lg btn-repondre">Enregistrer</button>
-                    </div>
-                    <div class="col-xs-6">
-                        <a href="messondages.php" class="btn btn-lg btn-repondre">Retour</a>
+                            <?php } ?>
+
+                        </div>
+                    <?php } ?>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="button-repondre">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <a href="messondages.php" class="btn btn-info btn-sondage">Retour</a>
+                                    </div>
+
+                                    <div class="col-xs-6">
+                                        <button id="submit" class="btn btn-info btn-sondage">Enregistrer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="response" class="hidden"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="response" class="hidden"></div>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
 
-
-
-
-</body>
+    </body>
 
 </html>
 

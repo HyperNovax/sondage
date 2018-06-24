@@ -34,19 +34,19 @@
                 <div class="sondage">
 
                     <div class="row">
-                        <div class="col-md-9"><div class="title"><?php echo $sondage['titre'] ?></div></div>
-                        <div class="col-md-3">
+                        <div class="col-xs-8"><div class="title"><?php echo $sondage['titre'] ?></div></div>
+                        <div class="col-xs-4 repondre">
                             <?php
-                            if ($haveReponse) {
-                                echo '<span class="label label-default">Répondu</span>';
-                            }
+                                if ($haveReponse) {
+                                    echo '<span class="label label-sondage">Répondu</span>';
+                                }
                             ?>
                         </div>
                     </div>
 
                     <div class="container-sondage">
-                        <div class="date"><span class="label label-default">Date d'ouverture : <?php echo $dateDebut->format("d/m/Y") ?></span></div>
-                        <div class="date"><span class="label label-default">Date de cloture : <?php echo $dateFin->format("d/m/Y") ?></span></div>
+                        <div class="container-date"><span class="label label-sondage">Date de cloture : <span class="date"><?php echo $dateFin->format("d/m/Y") ?></span></span></div>
+                        <div class="container-date"><span class="label label-sondage">Date d'ouverture : <span class="date"><?php echo $dateDebut->format("d/m/Y") ?></span></span></div>
                     </div>
 
                     <button class="btn btn-info btn-large btn-repondre">Répondre</button>

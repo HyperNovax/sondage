@@ -15,10 +15,17 @@ html, body {
     background-color: #0abde3;
     color: white;
     border: 0;
+    border-radius: 3px;
+}
+
+.btn-repondre {
+    background-color: #0abde3;
+    color: white;
+    border: 0;
     border-radius: 0;
 }
 
-.btn-sondage:hover {
+.btn-sondage:hover, .btn-repondre:hover {
     border: 0;
     box-shadow: none;
 }

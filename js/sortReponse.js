@@ -24,7 +24,7 @@ $(function () {
         /**
          * On récupère toutes les réponses du sondage.
          */
-        $('.sort').find('.reponse').each(function (index) {
+        $('.sort').find('.reponse').children().each(function (index) {
             let reponse = {
                 id: $(this).attr("rel"),
                 ordre: $(this).find(".ordre").text()

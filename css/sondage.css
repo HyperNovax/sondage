@@ -2,6 +2,7 @@
 .sondage {
     background-color: #22a6b3;
     padding-top: 5px;
+    margin-bottom: 15px;
 }
 
 .sondage .title {
@@ -16,24 +17,29 @@
     padding: 5px;
 }
 
-.sondage  .container-sondage .date {
+.sondage .repondre {
+    text-align: right;
+}
+
+.sondage .repondre .label-sondage {
+    margin-right: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.sondage .container-sondage .container-date {
     margin-bottom: 10px;
 }
 
-.sondage .container-sondage .date .label {
+.sondage .label-sondage {
     font-size: 1.0em;
+    font-weight: normal;
+    background-color: #576574;
+    margin-bottom: 10px;
 }
 
-.btn-repondre {
-    background-color: #0abde3;
-    color: white;
-    border: 0;
-    border-radius: 0;
-}
-
-.btn-repondre:hover {
-    border: 0;
-    box-shadow: none;
+.sondage .container-sondage .container-date .date {
+    font-weight: bold;
 }
 
 /* Répondre au sondage */
@@ -46,12 +52,13 @@
 }
 
 .question .title {
-    background-color: #22a6b3;
+    background-color: #576574;
     color: white;
     font-size: 1.1em;
     padding: 3px 3px 3px 10px;
-    border-left: 3px solid #c23616;
+    border-left: 8px solid #c23616;
     margin-bottom: 10px;
+    border-radius: 2px;
 }
 
 .preference-title {
@@ -59,14 +66,27 @@
 }
 
 .question .reponse {
-    background-color: #576574;
+    background-color: #22a6b3;
     color: white;
     padding: 3px;
     margin-bottom: 10px;
+    border-radius: 3px;
+    cursor: move;
+}
+
+.question .reponse .move-icon {
+    text-align: center;
+    font-size: 1.1em;
 }
 
 .question .reponse .ordre {
     text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.question .reponse .choix {
+    font-size: 1.1em;
 }
 
 .title-reponse {
@@ -75,7 +95,11 @@
     margin-bottom: 5px;
 }
 
-.button {
+/* Container du button pour enregistrer et de retour */
+.button-repondre {
     text-align: center;
+    background-color: #576574;
+    padding: 10px 5px;
+    border-radius: 3px;
 }
 
