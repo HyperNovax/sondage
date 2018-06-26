@@ -8,7 +8,7 @@
 
 
 
-    include 'headerAdmin.html';
+    include 'headerAdmin.php';
     include("../../lib/accesBDD.php");
 
 

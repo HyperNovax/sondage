@@ -7,7 +7,7 @@
  */
 
 
-include 'headerAdmin.html';
+include 'headerAdmin.php';
 include("../../lib/accesBDD.php");
 
 $query = $bdd ->query("SELECT UPPER(nom) as 'nom',prenom FROM utilisateur where id =". $_GET["user"]);

@@ -1,6 +1,6 @@
 <?php
 
-    include 'headerAdmin.html';
+    include 'header.html';
     include("../../lib/accesBDD.php");
 
 ?>

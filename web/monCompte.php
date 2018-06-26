@@ -25,8 +25,17 @@ if (isset($_POST['enregistrer'])) {
     if (!isset($_POST['email']) || empty($_POST['email'])) {
         $error = "Vous n'avez pas indiqué d'email!";
     }
-    if(!isset($_POST["password1"]) || empty($_POST['password1']))
-        $error = "Vous n'avez pas pas indiqué de mot de passe";
+    // Vérification de l'adresse email.
+    $sql = "SELECT * FROM utilisateur WHERE email = :email AND id != :id";
+    $query = $bdd->prepare($sql);
+    $query->bindParam(":email", $email);
+    $query->bindParam(":id", $idUtilisateur);
+    $query->execute();
+
+    if ($query->fetch(PDO::FETCH_ASSOC)) {
+        $error = "L'adresse mail ".$_POST['email']." est déjà utilisée";
+    }
+
     if($_POST["password1"] != $_POST["password2"])
         $error = "Les mots de passe ne correspondent pas";
 
@@ -37,22 +46,31 @@ if (isset($_POST['enregistrer'])) {
         $password = $_POST['password1'];
         $prenom = $_POST['prenom'];
         $nom = $_POST['nom'];
-
-        $sql = "UPDATE utilisateur SET email = :email, password = :password, nom = :nom, prenom = :prenom";
-        $query = $bdd->prepare($sql);
-        $query->bindParam(":email", $email);
-        $query->bindParam(":password", $password);
-        $query->bindParam(":prenom", $prenom);
-        $query->bindParam(":nom", $nom);
-        $success = $query->execute();
-        $reussite = 'OK';
+        if(empty($password))
+        {
+            $sql = "UPDATE utilisateur SET email = :email,  nom = :nom, prenom = :prenom where id= :id";
+            $query = $bdd->prepare($sql);
+            $query->bindParam(":email", $email);
+            $query->bindParam(":prenom", $prenom);
+            $query->bindParam(":nom", $nom);
+            $query->bindParam(":id", $idUtilisateur);
+        }
+        else {
+            $sql = "UPDATE utilisateur SET email = :email, password = :password, nom = :nom, prenom = :prenom where id= :id";
+            $query = $bdd->prepare($sql);
+            $query->bindParam(":email", $email);
+            $query->bindParam(":password", $password);
+            $query->bindParam(":prenom", $prenom);
+            $query->bindParam(":nom", $nom);
+            $query->bindParam(":id", $idUtilisateur);
+        }
+            $success = $query->execute();
+            $reussite = 'OK';
 
 
     }
 
 }
-
-
     $query = $bdd->query("SELECT nom, prenom, email FROM utilisateur  WHERE id =$idUtilisateur");
     $utilisateur = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -79,11 +97,11 @@ if (isset($_POST['enregistrer'])) {
                 </div>
                 <div class="form-group">
                     <label for="password2">Nouveau mot de passe : </label>
-                    <input type="password" id = password1 name="password1" class="form-control" required>
+                    <input type="password" id = password1 name="password1" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="password2">Vérifier votre mot de passe: </label>
-                    <input type="password" id = "password2" name="password2" class="form-control" required ><!--onkeydown="verifPassword()" -->
+                    <input type="password" id = "password2" name="password2" class="form-control" >
                 </div>
                 <p id="verifPass"></p>
 
