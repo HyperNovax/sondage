@@ -49,6 +49,7 @@ while ($sondage = $query->fetch(PDO::FETCH_OBJ)) {
         echo "<tr class=\"success\">";
         $question = $sondage->question;
         echo "<td colspan='2'><p class=\"text-center\">$sondage->question</p></td>";
+        echo "<td>Pourcentage</td>";
         echo "</tr><tr>";
     }
     /*else
@@ -60,8 +61,16 @@ while ($sondage = $query->fetch(PDO::FETCH_OBJ)) {
     }
     //echo "<td>$sondage->libelle</td>";
 
-    echo "<td>$sondage->nbChoix sondé.e.s sur $sondage->nbParticipant ont mis cette réponse à la place $sondage->preference. Soit $votants % des sondés</td>";
-    echo "</tr>";
+    ?>
+        <td>
+            <?php echo $sondage->nbChoix ?> sondé(s) sur <?php echo $sondage->nbParticipant ?> ont mis cette réponse à la place <?php echo $sondage->preference ?>.
+        </td>
+        <td>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: <?php echo $votants ?>%;" aria-valuenow="<?php echo $votants ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $votants ?>%</div>
+            </div>
+        </td>
+    <?php
 
 //CASE
 //    WHEN (SELECT DISTINCT ur2.idUtilisateur FROM utilisateur_reponse ur2

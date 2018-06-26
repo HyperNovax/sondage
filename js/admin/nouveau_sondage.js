@@ -19,12 +19,12 @@ $(function () {
     /**
      * Ajout d'une réponse.
      */
-    $('#zone-question').on('click', '.question .add-reponse', function (event) {
+    $('#zone-question').on('click', '.add-reponse', function (event) {
         event.preventDefault();
 
         let zoneReponse = $(this).parent().find(".zone-reponse");
 
-        let idQuestion = $(zoneReponse).parent().find('.form-question').attr("rel");
+        let idQuestion = $(zoneReponse).parent().attr("rel");
         let idReponse = $(zoneReponse).find('.form-reponse').last().attr('rel');
         if (idReponse == undefined) idReponse = 0;
         idReponse++;

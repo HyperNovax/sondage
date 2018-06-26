@@ -17,6 +17,7 @@
         <script type="text/javascript" src="/js/moment/moment-with-locales.js"></script>
         <script src="/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
         <script src="/js/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+        <script src="/js/global.js"></script>
         <script type="text/javascript" src="/js/admin/nouveau_sondage.js"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -38,9 +39,7 @@
 
                     <div class="collapse navbar-collapse" id="menu">
                         <ul class="nav navbar-nav">
-                            <li class=""><a href="/web/admin/admin.php">Sondages</a></li>
-                            <li class=""><a href="">Statistiques</a></li>
-                            <li class=""><a href="">Utilisateurs</a></li>
+                            <li class=""><a href="/web/admin/admin.php">Tableau de bord</a></li>
                         </ul>
                         <div class="nav navbar-form navbar-right">
                             <a href="/deconnexion.php" class="btn btn-info btn-sondage">Déconnexion</a>
