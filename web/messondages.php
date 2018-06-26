@@ -31,8 +31,10 @@
         <div class="col-md-4">
             <form action="/web/repondre.php" method="get">
                 <input type="hidden" name="id" value="<?php echo $sondage['id'] ?>">
-                <div class="sondage">
-
+                <?php
+                if (!is_null($sondage["couleur"])) echo '<div class="sondage" style="background-color:'.$sondage["couleur"].'">';
+                    else echo '<div class="sondage">';
+                ?>
                     <div class="row">
                         <div class="col-xs-8"><div class="title"><?php echo $sondage['titre'] ?></div></div>
                         <div class="col-xs-4 repondre">

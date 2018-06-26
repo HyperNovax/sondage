@@ -1,116 +1,65 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Clem
- * Date: 25/05/2018
- * Time: 04:01
- */
-include("lib/accesBDD.php");
 
-$erreur ='';
+    include("../../lib/PdoDatabase.php");
 
-if(!empty($_POST))
-{
-    switch ($_POST)
-    {
-        case !isset($_POST['Titre']):
-            $erreur += 'Pas de titre\n';
-        break;
-        case !isset($_POST["DateOuverture"]):
-            $erreur += 'Pas de date d\'ouverture\n';
-        break;
-        case !isset($_POST["DateFermeture"]):
-            $erreur += 'Pas de date de fermeture\n';
-            break;
-        case !isset($_POST["Question1"]):
-            $erreur += 'La question 1 n\'existe pas\n';
-            break;
-        case !isset($_POST["Reponse1_1"]):
-            $erreur += 'Renseignez la réponse 1 de la première question\n';
-            break;
-        case !isset($_POST['Reponse2_1']):
-            $erreur += 'Renseignez la réponse 2 de la première question\n';
-            break;
+    extract($_POST);
 
-
-
-    }
-}
-if($erreur == '')
-{
-    $reqAjout =$bdd->prepare( "insert into sondage( titre, dateDebut,dateFin, description, token_url) 
-      values( :titre, :dateDebut, :dateFin, 'toast', '')");
+    $bdd = PdoDatabase::getInstance()->getDbh();
+    $sql = "INSERT INTO sondage(titre, couleur, dateDebut, dateFin, description, token_url) values(:titre, :couleur, :dateDebut, :dateFin, :description, :token)";
+    $query =$bdd->prepare($sql);
 
     try{
-        $reqAjout->execute(array(
+        $myDateTime = DateTime::createFromFormat('d/m/Y H:i', $_POST["dateDebut"]);
+        $dateDebut = $myDateTime->format('Y-m-d H:i');
 
-            'titre'=>$_POST["Titre"],
-            'dateDebut'=>$_POST["DateOuverture"],
-            'dateFin'=>$_POST["DateFermeture"]
+        $myDateTime = DateTime::createFromFormat('d/m/Y H:i', $_POST["dateFin"]);
+        $dateFin = $myDateTime->format('Y-m-d H:i');
 
-        ));
-        echo'<br/> le fichier a bien été enregistré !';
+        $query->bindParam(":titre", $_POST['titre']);
+        $query->bindParam(":couleur", $_POST['couleur']);
+        $query->bindParam(":dateDebut", $dateDebut);
+        $query->bindParam(":dateFin", $dateFin);
+        $query->bindParam(":description", $_POST["description"]);
+        $query->bindParam(":token", $_POST["token"]);
+        $query->execute();
     }
-    catch(PDOException $e)
-    {
+    catch(PDOException $e) {
         die('Erreur : ' .$e->getMessage());
     }
+
     $idSondage = $bdd->lastInsertId();
-    $iQuestion = 1;
-    $iReponse = 1;
-    $existe = true;
-    echo "<br>";
-    echo $_POST["Reponse".$iReponse."_".$iQuestion]."<br>";
+    $idQuestion;
+    foreach ($_POST as $key => $value) {
+        if (preg_match("/^question_([0-9])/", $key, $ordre)) {
 
-    while($existe == true)
-    {
-        //S'il existe une qestion numéro i et qu'elle a au moins 2 réponses possible
-        if(isset($_POST["Question".$iQuestion]) && isset($_POST["Reponse1_".$iQuestion]) && isset($_POST["Reponse2_".$iQuestion]))
-        {
-            $reqQuestion = $bdd->prepare("insert into question(titre, preference, idSondage) 
-                  values( :titre, :preference, :idSondage)");
+            $sql = "INSERT INTO question(titre, ordre, idSondage) VALUES(:titre, :ordre, :idSondage)";
+            $query = $bdd->prepare($sql);
             try{
-                $reqQuestion->execute(array(
-
-                    'titre'=>$_POST["Question".$iQuestion],
-                    'preference'=>$iQuestion,
-                    'idSondage'=>1,
-
-                ));
-                echo'<br/> Question '.$iQuestion.' enregistrée !';
+                $query->bindParam(":titre", $value);
+                $query->bindParam(":ordre", $ordre[1]);
+                $query->bindParam(":idSondage", $idSondage);
+                $query->execute();
+                $idQuestion = $bdd->lastInsertId();
             }
-            catch(PDOException $e)
-            {
+            catch(PDOException $e) {
                 die('Erreur : ' .$e->getMessage());
             }
-            $idQuestion = $bdd->lastInsertId();
-            echo "<h1>$idQuestion</h1>";
-            while(isset($_POST["Reponse".$iReponse."_".$iQuestion]))
-            {
-                $reqReponse= $bdd->prepare("insert into reponse(libelle,  idQuestion) 
-                  values( :libelle,  :idQuestion)");
-                try{
-                    $reqReponse->execute(array(
 
-                        'libelle'=>$_POST["Reponse".$iReponse."_".$iQuestion],
+        } else if (preg_match("/q_._r_(.)/", $key, $matches)) {
 
-                        'idQuestion'=>$idQuestion
-
-                    ));
-                    echo'<br/> Réponse '.$iReponse.' enregistrée !';
-                }
-                catch(PDOException $e)
-                {
-                    die('Erreur : ' .$e->getMessage());
-                }
-                $iReponse++;
+            $sql = "INSERT INTO reponse(libelle, idQuestion) VALUES(:libelle, :idQuestion)";
+            $query= $bdd->prepare($sql);
+            try{
+                $query->bindParam(":libelle", $value);
+                $query->bindParam(":idQuestion", $idQuestion);
+                $query->execute();
             }
-            $iQuestion ++;
-            $iReponse = 1;
+            catch(PDOException $e) {
+                die('Erreur : ' .$e->getMessage());
+            }
         }
-        else
-            $existe = false;
     }
-}
+
+    header("location: /web/admin/admin.php");
 
 ?>
