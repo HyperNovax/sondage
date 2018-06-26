@@ -48,30 +48,35 @@
     </div>
 
     <div class="col-md-6">
+        <h2>Les utilisateurs</h2>
 
-        <h1>Les utilisateurs</h1>
-        <br><br>
-        <ul>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Adresse email</th>
+                <th></th>
+            </tr>
+            </thead>
 
+            <tbody>
             <?php
 
-            /**
-             * On récupère tout les sondages.
-             */
-            $query = $bdd->query("SELECT id,UPPER(nom) as 'nom',prenom FROM utilisateur  ORDER BY  nom ");
+                /**
+                 * On récupère tout les utilisateurs.
+                 */
+                $query = $bdd->query("SELECT id, UPPER(nom) as 'nom', prenom, email FROM utilisateur ORDER BY email");
 
-            while($utilisateur = $query->fetch(PDO::FETCH_OBJ)) {
-                echo '<li><a href="statistiquesUtilisateur.php?user='.$utilisateur->id.'">'.$utilisateur->nom. ' ' .$utilisateur->prenom.'</a></li>';
+                while($utilisateur = $query->fetch(PDO::FETCH_OBJ)) { ?>
+                    <tr>
+                        <td><?php echo $utilisateur->email ?></td>
+                        <td><a href="statistiquesUtilisateur.php?user='<?php echo $utilisateur->id ?>'" class="btn btn-info btn-sondage">Statistiques</a></td>
+                    </tr>
+            <?php } ?>
+            </tbody>
 
-
-            }
-            ?>
-
-        </ul>
+        </table>
 
     </div>
-
-</div>
 </div>
 
 

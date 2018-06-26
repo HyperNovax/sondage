@@ -24,9 +24,11 @@
 
         $haveReponse = ManagerReponse::userHaveReponse($idUtilisateur, $sondage['id']);
 
-        if ($index % 3 == 0) {
+        $index++;
+        if ($index == 1 || $index % 3 == 1) {
             echo '<div class="row">';
         }
+
     ?>
         <div class="col-md-4">
             <form action="/web/repondre.php" method="get">
@@ -57,9 +59,8 @@
             </form>
         </div>
     <?php
-        if ($index != 0 && $index % 3 == 0) {
+        if ($index != 1 && $index % 3 == 0) {
             echo "</div>";
         }
-        $index++;
     }
     ?>

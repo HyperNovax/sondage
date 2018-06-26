@@ -46,7 +46,7 @@
             }
 
         } else if (preg_match("/q_._r_(.)/", $key, $matches)) {
-
+            var_dump($matches);
             $sql = "INSERT INTO reponse(libelle, idQuestion) VALUES(:libelle, :idQuestion)";
             $query= $bdd->prepare($sql);
             try{
