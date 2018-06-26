@@ -40,7 +40,7 @@
                 }
 
             } else {
-                $error = "Cette adresse email est déjà utilisé";
+                $error = "Cette adresse email est déjà utilisée";
             }
 
         }

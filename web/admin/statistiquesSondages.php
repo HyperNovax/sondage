@@ -23,16 +23,14 @@
  	JOIN reponse r2 on r2.id = ur3.idReponse
  	JOIN question q2 on q2.id= r2.idQuestion
 	where q2.idSondage = ".$_GET["sondage"]." and ur3.idReponse = ur.idReponse) as 'nbParticipant',
- (select count(ur2.preference) from utilisateur_reponse ur2
-	JOIN reponse r2 on r2.id = ur2.idReponse
- 	JOIN question q2 on q2.id= r2.idQuestion
-	where q2.idSondage = 3 and ur2.idReponse = ur.idReponse) as 'nbPreference'
+ (select count(distinct ur2.preference) from utilisateur_reponse ur2
+	where  ur2.idReponse = ur.idReponse) as 'nbPreference'
 from sondage s
 JOIN question q on q.idSondage = s.id
 JOIN reponse r on r.idQuestion = q.id
 JOIN utilisateur_reponse ur on r.id = ur.idReponse
 JOIN utilisateur u on ur.idUtilisateur = U.id
-Where s.id = ".$_GET["sondage"]." order by question, r.libelle, preference");
+Where s.id = ".$_GET["sondage"]." order by question, r.libelle,  preference");
     $question = null;
     $reponse = null;
     $votants = 0;
@@ -58,7 +56,7 @@ Where s.id = ".$_GET["sondage"]." order by question, r.libelle, preference");
             echo"<tr>";*/
         if($reponse != $sondage->libelle) {
             $reponse = $sondage->libelle;
-            echo "<td rowspan='2'>$sondage->libelle</td>";
+            echo "<td rowspan='$sondage->nbPreference'>$sondage->libelle</td>";
 
         }
         //echo "<td>$sondage->libelle</td>";
