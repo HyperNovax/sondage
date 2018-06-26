@@ -47,9 +47,9 @@
                                 <?php foreach ($result as $reponse) { ?>
                                     <div class="reponse">
                                         <div class="row" rel="<?php echo $reponse['idReponse'] ?>">
-                                            <div class="col-xs-1 move-icon"><span class="glyphicon glyphicon-move"></span></div>
-                                            <div class="col-xs-1 ordre"><?php echo $reponse['preference'] ?></div>
-                                            <div class="col-xs-10 choix"><?php echo $reponse['libelle'] ?></div>
+                                            <div class="col-xs-2 move-icon"><span class="glyphicon glyphicon-move"></span></div>
+                                            <div class="col-xs-2 ordre"><?php echo $reponse['preference'] ?></div>
+                                            <div class="col-xs-8 choix"><?php echo $reponse['libelle'] ?></div>
                                         </div>
                                     </div>
                                 <?php } ?>
@@ -67,9 +67,9 @@
                                     <?php foreach ($result as $reponse) { ?>
                                         <div class="reponse">
                                             <div class="row" rel="<?php echo $reponse['id'] ?>">
-                                                <div class="col-xs-1 move-icon"><span class="glyphicon glyphicon-move"></span></div>
-                                                <div class="col-xs-1 ordre"><?php echo $ordre ?></div>
-                                                <div class="col-xs-10 choix"><?php echo $reponse['libelle'] ?></div>
+                                                <div class="col-xs-2 move-icon"><span class="glyphicon glyphicon-move"></span></div>
+                                                <div class="col-xs-2 ordre"><?php echo $ordre ?></div>
+                                                <div class="col-xs-8 choix"><?php echo $reponse['libelle'] ?></div>
                                             </div>
                                         </div>
                                     <?php $ordre++; } ?>

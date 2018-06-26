@@ -33,7 +33,7 @@
                             <td><?php echo $sondage->titre ?></td>
                             <td><?php echo $sondage->dateDebut ?></td>
                             <td><?php echo $sondage->dateFin ?></td>
-                            <td><a href="statistiquesSondages.php?sondage=<?php echo $sondage->id ?>" class="btn btn-info btn-repondre">Statistiques</a></td>
+                            <td><a href="statistiquesSondages.php?sondage=<?php echo $sondage->id ?>" class="btn btn-info btn-sondage">Statistiques</a></td>
                         </tr>
                 <?php } ?>
                 </tbody>

@@ -1,0 +1,20 @@
+
+.question {
+    padding-top: 10px;
+    margin-bottom: 15px;
+    border-top: 4px solid #576574;
+}
+
+.question .form-question label {
+    padding-left: 10px;
+    border-left: 4px solid #c23616;
+}
+
+.question .zone-reponse {
+    margin-top: 15px;
+}
+
+.question .form-reponse label {
+    padding-left: 10px;
+    border-left: 4px solid #22a6b3;
+}
