@@ -52,7 +52,12 @@
                         <div class="container-date"><span class="label label-sondage">Date de cloture : <?php echo $dateFin->format("d/m/Y") ?></span></div>
                     </div>
 
-                    <button class="btn btn-large btn-repondre">Consulter les résultats</button>
+                    <button class="btn btn-large btn-repondre">
+                        <?php
+                            echo "<a href=\"monSondage.php?sondage=".$sondage['id']."\">Consulter les statistiques</a>";
+                        ?>
+
+                    </button>
 
                 </div>
             </form>
